@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Flight Details</title>
+  <link rel="stylesheet" href="/style/style1.css">
+</head>
+
+<body>
+<header>
+  <h2>Athens International Airport</h2>
+  <p><img th:src="@{/photo/AIA.png}" th:alt="logo"></p>
+</header>
+
+<main>
+  <h1>Flight Details</h1>
+
+  <article>
+    <p>Company: <span th:text="${flight.company}"></span></p>
+    <p>Flight: <span th:text="${flight.code}"></span></p>
+    <p>Destination: <span th:text="${flight.destination}"></span></p>
+    <p>Time: <span th:text="${flight.flight_time}"></span></p>
+    <p>Gate: <span th:text="${flight.gate}"></span></p>
+<!--    <p>type: <span th:text="${flight.aeroplane.type}"></span></p>-->
+<!--    <p>capacity: <span th:text="${flight.aeroplane.capacity}"></span></p>-->
+<!--    <p>Crew: <span th:each="crew : ${flight.crew}">-->
+<!--      <span th:text="${crew.name}"></span>-->
+<!--      <span th:text="${crew.jobtype}"></span><br>-->
+<!--    </span></p>-->
+
+  </article>
+
+
+
+  <a href="/">
+    <button>Return to homepage</button>
+
+  <article>
+    <h2>Infos</h2>
+    <p>Contact</p>
+    <p>27210......</p>
+  </article>
+</main>
+
+<footer>
+  <p>&copy; Athens International Airport 2023</p>
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>My Page</title>
+  <link rel="stylesheet" href="/style/style1.css">
+
+
+  <!--<script type = "text/javascript">
+    window.setTimeout( function() {
+    window.location.reload();
+    }, 5000);
+      </script> -->
+</head>
+
+<body>
+<header>
+  <h2>Athens International Airport</h2>
+  <p><img th:src="@{/photo/AIA.png}" th:alt="logo"></p>
+</header>
+
+<main>
+  <h1>Departures</h1>
+  <article>
+    <nav>
+      <table class="center">
+        <tr>
+          <th>Id</th>
+          <th>Company</th>
+          <th>Flight</th>
+          <th>Destination</th>
+          <th>Time</th>
+          <th>Gate</th>
+          <th>Details</th>
+          <th>Delete</th>
+          <th>Update</th>
+          <th>Status</th>
+        </tr>
+        <tr th:each="flight : ${flights}">
+          <td th:text="${flight.id}"/>
+          <td th:text="${flight.company}"/>
+          <td th:text="${flight.code}"/>
+          <td th:text="${flight.destination}"/>
+          <td th:text="${flight.flight_time}"/>
+          <td th:text="${flight.gate}"/>
+          <td>
+            <a th:href="@{/flight/{flightCode}(flightCode=${flight.code})}">
+              <button>Details</button>
+            </a>
+          </td>
+          <td>
+            <form th:action="@{/delete-flight/{flightId}(flightId=${flight.id})}" method="post">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+          <td>
+            <a th:href="@{/flight/update/{flightId}(flightId=${flight.id})}">
+              <button>Update</button>
+            </a>
+
+          <td th:text="${flight.status}" th:style="${flight.status == 'GATE_OPEN' ? 'color:green' : flight.status == 'BOARDING' ? 'color: yellow' : ''}"/>
+
+        </tr>
+      </table>
+
+      <a href="/add-flight">
+        <button>Add a new Flight</button>
+      </a>
+
+      </a>
+    </nav>
+  </article>
+
+
+  <article>
+    <h2>Infos</h2>
+    <p>Contact</p>
+    <p>27210......</p>
+  </article>
+</main>
+
+<aside>
+  <p>Offers</p>
+  <p>15% discount to our members</p>
+  <p>Register now</p>
+</aside>
+
+<footer>
+  <p>&copy; Athens International Airport 2023</p>
+</footer>
+
+</body>
+
+</html>

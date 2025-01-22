@@ -1,0 +1,68 @@
+body {
+  font-family: "Critter Std", cursive;
+  background-color: #d5dae1;
+  color: #0e2c3b;
+}
+
+header{
+  background-color: #cdd9de;
+  text-align: center;
+}
+
+h2{
+  background-color: rgb(105, 126, 126);
+}
+
+h1 {
+  border: 3px solid #b5b7c0;
+  border-radius: 15px;
+  padding: 3px;
+  text-align: center;
+  color: #1F2F16;
+  font-size: 3rem;
+}
+
+p {
+  font-size: 2rem;
+  text-align: center;
+}
+
+a{
+  font-family: "Critter Std", cursive;
+  background-color: #d5dae1;
+  color: #0e2c3b;
+}
+
+button{
+  background-color: #d5dae1;
+  border: none;
+  color: white;
+  padding: 12px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+aside{
+  border: 3px solid #b5b7c0;
+  border-radius: 15px;
+  padding: 3px;
+  text-align: left;
+  color: #1F2F16;
+  font-size: 3rem;
+}
+
+table, th, td {
+  border: 3px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+

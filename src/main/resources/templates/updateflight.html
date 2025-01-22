@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Update Flight</title>
+  <link rel="stylesheet" href="/style/style1.css">
+</head>
+
+<body>
+<header>
+  <h2>Athens International Airport</h2>
+  <p><img th:src="@{/photo/AIA.png}" th:alt="logo"></p>
+</header>
+
+<main>
+  <h1>Update Flight</h1>
+
+  <form th:action="@{/flight/update/{flightId}(flightId=${flight.id})}" th:object="${flight}" method="post">
+    <label for="company">Εταιρία:</label>
+    <input type="text" id="company" th:field="*{company}" placeholder="Company's name"/>
+    <br>
+    <label for="code">Αριθμός πτήσης:</label>
+    <input type="number" id="code" th:field="*{code}" placeholder="Flight's Number"/>
+    <br>
+    <label for="destination">Προρισμός:</label>
+    <input type="text" id="destination" th:field="*{destination}" placeholder="Destination"/>
+    <br>
+    <label for="flight_time">Ώρα:</label>
+    <input type="text" id="flight_time" th:field="*{flight_time}" placeholder="Time of departure">
+    <br>
+    <label for="gate">Πύλη:</label>
+    <input type="text" id="gate" th:field="*{gate}" placeholder="Departure Gate"/>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h1 th:text="${alreadyExists}"></h1>
+  <h1 th:text ="${errorMessage}"></h1>
+
+  <article>
+    <h2>Infos</h2>
+    <p>Contact</p>
+    <p>27210......</p>
+  </article>
+</main>
+
+<footer>
+  <p>&copy; Athens International Airport 2023</p>
+</footer>
+</body>
+
+</html>

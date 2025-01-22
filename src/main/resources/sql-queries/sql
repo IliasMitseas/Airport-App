@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS flight;
+DROP TABLE IF EXISTS aeroplane;
+
+
+CREATE TABLE flight (id serial PRIMARY KEY, aeroplaneId integer REFERENCES aeroplane(aeroplaneId), destination VARCHAR (50) NOT NULL, code VARCHAR (50) NOT NULL, gate VARCHAR(255) NOT NULL, flight_time TIME NOT NULL, status VARCHAR (50) NOT NULL, company VARCHAR (50) NOT NULL);
+
+INSERT INTO flight(aeroplaneId, destination, code, gate, flight_time, status, company) VALUES (1, 'Kalamata', '12345', 'A 29', '14:00:00', 'BOARDING', 'Aegean');
+
+INSERT INTO flight(aeroplaneId, destination, code, gate, flight_time, status, company) VALUES (2, 'Athens', '12345', 'A 29', '14:00:00', 'BOARDING', 'Aegean');
+
+CREATE TABLE aeroplane (aeroplaneId serial PRIMARY KEY, type VARCHAR (50) NOT NULL, capacity integer NOT NULL);
+
+INSERT INTO aeroplane(type, capacity) VALUES ('BOEING', 168);
+
+INSERT INTO aeroplane(type, capacity) VALUES ('AIRBUS', 180);
+
+INSERT INTO aeroplane(type, capacity) VALUES ('CESNA', 60);
+
+CREATE TABLE crew (crewId serial PRIMARY KEY, name VARCHAR (50) NOT NULL, jobtype VARCHAR (50) NOT NULL);
+
+INSERT INTO crew(name, jobtype) VALUES ('Ilias Mitseas', 'air host');
+INSERT INTO crew(name, jobtype) VALUES ('John Pap', 'copilot');
+INSERT INTO crew(name, jobtype) VALUES ('Alex Vakp', 'pilot');
+INSERT INTO crew(name, jobtype) VALUES ('George Mal', 'pilot');
+INSERT INTO crew(name, jobtype) VALUES ('Nick El', 'copilot');
+INSERT INTO crew(name, jobtype) VALUES ('Stauros Nis', 'air host');
+
+CREATE TABLE flight_crew(flightid INTEGER NOT NULL, crewid INTEGER NOT NULL, PRIMARY KEY(flightid, crewid), FOREIGN KEY(flightid) REFERENCES flight(id), FOREIGN KEY(crewid) REFERENCES crew(crewid));
+INSERT INTO flight_crew(flightid, crewid) VALUES(2,1),(2,2),(2,3);
+INSERT INTO flight_crew(flightid, crewid) VALUES(4,4),(4,5),(4,6);
