@@ -22,7 +22,6 @@ public class Flight {
     @Id
     private int id;
 
-
     @Column
     private String destination;
 

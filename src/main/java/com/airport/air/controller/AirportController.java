@@ -30,7 +30,7 @@ public class AirportController {
         List<Flight> flightList = flightService.findAllFlights();
 
         //Set Status dynamically
-//        flightService.mapStatusByTime(flightList);
+        flightService.mapStatusByTime(flightList);
 
         model.addAttribute("flights", flightList);
 
@@ -41,25 +41,11 @@ public class AirportController {
         return "home";
     }
 
-
-//    @GetMapping("/flight/{flightId}")
-//    public String showFlightDetails(@PathVariable int flightId, Model model) {
-//        //Find if a flight exists by his code
-//        Flight flight = flightService.findById(flightId);
-//
-//        if (flight != null) {
-//            model.addAttribute("flight", flight);
-//            return "flight-details";
-//        } else {
-//            // Handle flight not found scenario
-//            return "flight-not-found";
-//        }
-//    }
-
-    @GetMapping("/flight/{flightCode}")
-    public String showFlightDetails(@PathVariable String flightCode, Model model) {
-        //Find if a flight exists by his code
-        Flight flight = flightService.findByCode(flightCode);
+    //Details for one flight
+    @GetMapping("/flight/{flightId}")
+    public String showFlightDetails(@PathVariable int flightId, Model model) {
+        //Find if a flight exists by his ID
+        Flight flight = flightService.findById(flightId);
 
         if (flight != null) {
             model.addAttribute("flight", flight);
@@ -70,12 +56,22 @@ public class AirportController {
         }
     }
 
-//    //Add a new flight page
-//    @GetMapping("/add-flight")
-//    public String showAddForm(Model model) {
-//        model.addAttribute("flight", new Flight());
-//        return "addflight";
-//    }
+
+
+    //Delete a flight
+    @PostMapping("/delete-flight/{flightId}") //why PostMapping and no DeleteMapping?
+    public String deleteFlight(@PathVariable int flightId, Model model) {
+        flightService.deleteById(flightId);
+        return "redirect:/";
+    }
+
+
+    //Add a new flight page
+    @GetMapping("/add-flight")
+    public String showAddForm(Model model) {
+        model.addAttribute("flight", new Flight());
+        return "addflight";
+    }
 //
 //    //Handle a new flight request
 //    @PostMapping("/add")
@@ -112,13 +108,7 @@ public class AirportController {
 //
     //Read one - Details for each flight
 
-//
-//    //Delete a flight
-//    @PostMapping("/delete-flight/{flightId}") //why PostMapping and no DeleteMapping?
-//    public String deleteFlight(@PathVariable int flightId, Model model) {
-//        crudRepository.deleteById(flightId);
-//        return "redirect:/";
-//    }
+
 //
 //
 //

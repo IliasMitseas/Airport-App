@@ -45,7 +45,7 @@
           <td th:text="${flight.flight_time}"/>
           <td th:text="${flight.gate}"/>
           <td>
-            <a th:href="@{/flight/{flightCode}(flightCode=${flight.code})}">
+            <a th:href="@{/flight/{flightId}(flightId=${flight.id})}">
               <button>Details</button>
             </a>
           </td>
