@@ -1,1 +1,1 @@
-Simple app that simulates the departure board of an airport. The app is developed with java spring Framework. I also used a docker postgres DB. 
+Simple web application that simulates the departure board of an airport. The board has all the crud operations. The app is developed with spring Framework, from which I mostly use Spring-Data. I am also using PostgresDB via Docker. 
