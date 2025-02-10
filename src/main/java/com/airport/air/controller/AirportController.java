@@ -1,7 +1,9 @@
 package com.airport.air.controller;
 import java.sql.*;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
+import com.airport.air.model.FlightDto;
 import com.airport.air.repository.FlightRepository;
 import com.airport.air.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
@@ -57,9 +59,8 @@ public class AirportController {
     }
 
 
-
     //Delete a flight
-    @PostMapping("/delete-flight/{flightId}") //why PostMapping and no DeleteMapping?
+    @PostMapping("/delete-flight/{flightId}")
     public String deleteFlight(@PathVariable int flightId, Model model) {
         flightService.deleteById(flightId);
         return "redirect:/";
@@ -72,78 +73,70 @@ public class AirportController {
         model.addAttribute("flight", new Flight());
         return "addflight";
     }
-//
-//    //Handle a new flight request
-//    @PostMapping("/add")
-//        public String addSubmitHandler(@ModelAttribute FlightDto flightDto, Model model) throws SQLException {
-//
-//        //Try to find if a flight already exists
-//        try {
-//            //Create the flight I want to add
-//            Flight addFlight = flightService.mapDtoToFlight(flightDto);
-//            boolean currFlight = flightService.checkForDuplicates(addFlight);
-//
-//
-//            if (currFlight){
-//                model.addAttribute("flight", flightDto);
-//                model.addAttribute("alreadyExists", "That flight already exists");
-//                return "addflight";
-//            }
-//            // If flight does not exist I add the flight in my db
-//            else {
-//                crudRepository.add(addFlight);
-//            }
-//        } //here I handle the time error when I add a new flight
-//        catch (DateTimeParseException timeException){
-//            model.addAttribute("errorMessage", "Enter a valid time please");
-//            model.addAttribute("flight", flightDto);
-//            return "addflight";
-//        }
-//
-//
-//        /* Redirect to the flight details page
-//           Read one */
-//        return "redirect:/";
-//    }
-//
-    //Read one - Details for each flight
+
+    //Handle a new flight request
+    @PostMapping("/add")
+        public String addSubmitHandler(@ModelAttribute FlightDto flightDto, Model model) throws SQLException {
+
+        //Try to find if a flight already exists
+        try {
+            //Create the flight I want to add
+            Flight addFlight = flightService.mapDtoToFlight(flightDto);
+            boolean currFlight = flightService.checkForDuplicates(addFlight);
 
 
-//
-//
-//
-//    //Update a Flight
-//    @GetMapping("/flight/update/{flightId}")
-//    public String updateFlightForm(@PathVariable int flightId, Model model) {
-//        Flight flight = flightService.findFlightById(flightId);
-//            // change LocalTime to String
-//            String timeString = flight.getFlight_time().toString();
-//
-//            // Create a new FlightDto
-//            FlightDto flightDto = flightService.mapFlightToDto(flight, timeString);
-//
-//            model.addAttribute("flight", flightDto);
-//
-//            return "updateflight";
-//    }
-//
-//
-//
-//
-//    @PostMapping("/flight/update/{flightId}")
-//    //Pws ginetai akrivws h sundesh metaxu flight kai updatedFlight?
-//    public String updateFlight(@PathVariable int flightId, @ModelAttribute("flight") FlightDto  updatedFlight, Model model) {
-//
-//        try {
-//
-//            //I use a new Flight to update the existing flight
-//            Flight flightToUpdate = flightService.mapDtoToFlight(updatedFlight);
-//            crudRepository.updateById(flightToUpdate, flightId);
-//            return "redirect:/";
-//        }
-//        catch (DateTimeParseException timeException) {
-//            model.addAttribute("errorMessage", "Enter a valid time please");
-//            return "updateflight";
-//        }
-//    }
+            if (currFlight){
+                model.addAttribute("flight", flightDto);
+                model.addAttribute("alreadyExists", "That flight already exists");
+                return "addflight";
+            }
+            // If flight does not exist I add the flight in my db
+            else {
+                flightService.addFlight(addFlight);
+            }
+        } //here I handle the time error when I add a new flight
+        catch (DateTimeParseException timeException){
+            model.addAttribute("errorMessage", "Enter a valid time please");
+            model.addAttribute("flight", flightDto);
+            return "addflight";
+        }
+
+
+        /* Redirect to the flight details page
+           Read one */
+        return "redirect:/";
+    }
+
+
+    //Update a Flight
+    @GetMapping("/flight/update/{flightId}")
+    public String updateFlightForm(@PathVariable int flightId, Model model) {
+        Flight flight = flightService.findById(flightId);
+            // change LocalTime to String
+            String timeString = flight.getFlight_time().toString();
+
+            // Create a new FlightDto
+            FlightDto flightDto = flightService.mapFlightToDto(flight, timeString);
+
+            model.addAttribute("flight", flightDto);
+
+            return "updateflight";
+    }
+
+    @PostMapping("/flight/update/{flightId}")
+    //Pws ginetai akrivws h sundesh metaxu flight kai updatedFlight?
+    public String updateFlight(@PathVariable int flightId, @ModelAttribute("flight") FlightDto  updatedFlight, Model model) {
+
+        try {
+
+            //I use a new Flight to update the existing flight
+            Flight flightToUpdate = flightService.mapDtoToFlight(updatedFlight);
+            flightService.saveById(flightToUpdate, flightId);
+            return "redirect:/";
+        }
+        catch (DateTimeParseException timeException) {
+            model.addAttribute("errorMessage", "Enter a valid time please");
+            return "updateflight";
+        }
+    }
 }

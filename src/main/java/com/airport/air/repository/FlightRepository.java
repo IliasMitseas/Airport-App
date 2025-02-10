@@ -21,4 +21,7 @@ public interface FlightRepository extends JpaRepository<Flight, UUID> {
     @Transactional //
     void deleteById(int id);
 
+    @Query("select f from Flight f where f.code = :code")
+    Flight findByCode(@Param("code") String code);
+
 }
